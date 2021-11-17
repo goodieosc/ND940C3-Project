@@ -12,4 +12,6 @@
     <string name="button_loading">We are loading </string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="label_1">Glide - Image loading library by BumpTech</string>
+    <string name="label_2">LoadApp - Current repository by Udacity</string>
+    <string name="label_3">Retrofit - Type-safe HTTP client for Andorid and Java by Square, inc</string>
 </resources>
