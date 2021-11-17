@@ -14,4 +14,7 @@
     <string name="label_1">Glide - Image loading library by BumpTech</string>
     <string name="label_2">LoadApp - Current repository by Udacity</string>
     <string name="label_3">Retrofit - Type-safe HTTP client for Andorid and Java by Square, inc</string>
+    <string name="url1">https://github.com/bumptech/glide/archive/refs/heads/master.zip</string>
+    <string name="url2">https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/refs/heads/master.zip</string>
+    <string name="url3">https://github.com/square/retrofit/archive/refs/heads/master.zip</string>
 </resources>
