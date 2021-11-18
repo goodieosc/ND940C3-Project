@@ -13,15 +13,11 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:backgroundTint="@color/colorAccent"
-        android:backgroundTintMode="src_atop"
-        android:foregroundTint="@color/colorAccent"
-        android:foregroundTintMode="src_over"
-        android:tint="#E91E63"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_cloud_download_24" />
+        app:srcCompat="@drawable/ic_baseline_cloud_download_24"
+        app:tint="#E91E63" />
 
 
     <RadioGroup
@@ -66,7 +62,6 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:background="#AF5353"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity() {
         //For download manager
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-
-
         custom_button.setOnClickListener {
                 download()
         }
@@ -51,12 +49,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,"Download completed",Toast.LENGTH_LONG).show()
                 Log.i("MainActivity","Download completed")
             }
-
         }
     }
 
     private fun download() {
-
 
         val selectedRadioButtonId = radioGroup.checkedRadioButtonId
 
@@ -98,5 +94,4 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val CHANNEL_ID = "channelId"
     }
-
 }
