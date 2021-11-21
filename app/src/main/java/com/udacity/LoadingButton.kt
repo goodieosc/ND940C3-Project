@@ -51,23 +51,31 @@ class LoadingButton @JvmOverloads constructor(
             addUpdateListener {
                 // Update the current progress to use it [onDraw].
                 progress = it.animatedValue as Int
-                Log.i("LoadingButton", "${it.animatedValue as Int}")
+                //Log.i("LoadingButton", "${it.animatedValue as Int}")
                 // Redraw the layout to use the new updated value of [progress].
                 invalidate()
             }
 
             // Repeat the animation infinitely.
-            //repeatCount = 2
-            //repeatMode = ValueAnimator.RESTART
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.RESTART
+
+            //On first repeat, change the buttonState to Completed. This will draw the standard rect.
+            doOnRepeat {
+                buttonState = ButtonState.Completed
+                isClickable = true
+                Log.i("LoadingButton", "Button status changed to $buttonState")
+            }
+
             // Start the animation.
-
-            valueAnimator.start()
-
+            start()
         }
     }
 
     init {
         isClickable = true
+        buttonState = ButtonState.UnClicked
+        Log.i("LoadingButton", "Button status is $buttonState")
     }
 
     override fun performClick(): Boolean {
@@ -110,7 +118,8 @@ class LoadingButton @JvmOverloads constructor(
                 canvas.drawRect(loadingRect, rectPaint)
 
                 //Draw the arc
-                canvas.drawArc((widthSize - 150f),
+                canvas.drawArc(
+                    (widthSize - 150f),
                     (heightSize / 2) - 30f,
                     (widthSize - 80f),
                     (heightSize / 2) + 30f,
@@ -126,7 +135,28 @@ class LoadingButton @JvmOverloads constructor(
                     textSpec //Text attributes
                 )
 
-            } else -> { //Draw default rectangle and text
+            }
+
+                ButtonState.Completed -> {
+
+                    //Draw default rectangle and text
+
+                    canvas.drawRect(
+                        0f, // left side of the rectangle to be drawn
+                        0f, // top side
+                        width.toFloat(), // right side
+                        height.toFloat(), // bottom side
+                        rectPaint  //rect Attributes
+                    )
+
+                    canvas.drawText("Download Complete", //Text to display
+                        (width / 2).toFloat(), //Starting point of x axis. Setting at half of the width to centre.
+                        ((height / 2).toFloat() - (centreText)), //Starting point of y axis. Setting at half of the height to centre.
+                        textSpec //Text attributes
+                    )
+
+
+        } else -> { //Draw default rectangle and text
 
                 canvas.drawRect(
                     0f, // left side of the rectangle to be drawn
