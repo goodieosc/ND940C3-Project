@@ -27,9 +27,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setSupportActionBar(toolbar)
 
         //For download manager
@@ -83,6 +85,8 @@ class MainActivity : AppCompatActivity() {
 
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager //as specifies the data type
             downloadID = downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+
+
 
         }else{
             //If no radioButton is selected, send a toast
