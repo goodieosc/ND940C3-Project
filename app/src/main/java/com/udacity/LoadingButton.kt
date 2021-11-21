@@ -13,9 +13,6 @@ import androidx.core.animation.doOnRepeat
 import kotlin.properties.Delegates
 import android.animation.Animator
 
-
-
-
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
@@ -41,6 +38,27 @@ class LoadingButton @JvmOverloads constructor(
             }
         }
     }
+
+
+    //Box specifications
+    val rectPaint = Paint().apply {
+        color = Color.BLACK
+    }
+
+    //Arc specifications
+    val arcPaint = Paint().apply {
+        color = Color.RED
+    }
+
+    //text specifications.
+    val textSpec = Paint().apply {
+        color = Color.BLUE
+        textSize = 70F
+        textAlign = Paint.Align.CENTER
+    }
+
+
+
 
     private fun animator() {
 
@@ -90,28 +108,16 @@ class LoadingButton @JvmOverloads constructor(
     }
 
 
+
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        //Box specifications
-        val rectPaint = Paint()
-        rectPaint.color = Color.BLACK
-
-        //Arc specifications
-        val arcPaint = Paint()
-        arcPaint.color = Color.RED
-
-        //text specifications.
-        val textSpec = Paint()
-        textSpec.color = Color.BLUE
-        textSpec.textSize = 70F
-        textSpec.textAlign = Paint.Align.CENTER
         val centreText = (textSpec.ascent() + textSpec.descent()) / 2  //Used to centre text vertically
 
         when (buttonState) {
 
             ButtonState.Loading -> {
-
                 // Update the loading background width to be from 0 to the current progress of the button full width.
                 loadingRect.set(0, 0, width * progress / 360, height)
                 // Draw the loading background with the newly defined dimensions.
@@ -134,12 +140,9 @@ class LoadingButton @JvmOverloads constructor(
                     ((height / 2).toFloat() - (centreText)), //Starting point of y axis. Setting at half of the height to centre.
                     textSpec //Text attributes
                 )
-
             }
 
-                ButtonState.Completed -> {
-
-                    //Draw default rectangle and text
+                ButtonState.Completed -> { //Draw completed rectangle and text
 
                     canvas.drawRect(
                         0f, // left side of the rectangle to be drawn
