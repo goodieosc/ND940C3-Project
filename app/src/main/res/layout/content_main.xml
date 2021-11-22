@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_cloud_download_24"
-        app:tint="#E91E63" />
+        app:tint="@color/colorPrimary" />
 
 
     <RadioGroup

@@ -12,12 +12,30 @@ import android.view.View
 import androidx.core.animation.doOnRepeat
 import kotlin.properties.Delegates
 import android.animation.Animator
+import androidx.core.content.ContextCompat
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
+
+    //Box specifications
+    val rectPaint = Paint().apply {
+        color = ContextCompat.getColor(context,R.color.colorPrimary)
+    }
+
+    //Arc specifications
+    val arcPaint = Paint().apply {
+        color = ContextCompat.getColor(context,R.color.colorPrimaryDark)
+    }
+
+    //text specifications.
+    val textSpec = Paint().apply {
+        color = ContextCompat.getColor(context,R.color.colorPrimaryDark)
+        textSize = 60F
+        textAlign = Paint.Align.CENTER
+    }
 
 
     // This would contain the loading background dimensions.
@@ -38,27 +56,6 @@ class LoadingButton @JvmOverloads constructor(
             }
         }
     }
-
-
-    //Box specifications
-    val rectPaint = Paint().apply {
-        color = Color.BLACK
-    }
-
-    //Arc specifications
-    val arcPaint = Paint().apply {
-        color = Color.RED
-    }
-
-    //text specifications.
-    val textSpec = Paint().apply {
-        color = Color.BLUE
-        textSize = 70F
-        textAlign = Paint.Align.CENTER
-    }
-
-
-
 
     private fun animator() {
 
@@ -106,9 +103,6 @@ class LoadingButton @JvmOverloads constructor(
         invalidate()
         return true
     }
-
-
-
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
