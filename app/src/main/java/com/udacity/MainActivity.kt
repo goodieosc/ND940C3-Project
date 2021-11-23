@@ -19,17 +19,18 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 // Notification ID.
 private val NOTIFICATION_ID = 0
+private val REQUEST_CODE = 0
 
 class MainActivity : AppCompatActivity() {
 
     private var downloadID: Long = 0
-
 
 
     private lateinit var notificationManager: NotificationManager
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         notificationManager = getSystemService(applicationContext, NotificationManager::class.java) as NotificationManager
 
         //For download manager. Using the DownloadReceiver class which extends BroadcastReceiver to alter when files are downloaded.
-        registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        registerReceiver(downloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         //Create the notidication channel for downloads.
         createChannel(CHANNEL_ID, CHANNEL_NAME,notificationManager)
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private val receiver = object : BroadcastReceiver() {
+    private val downloadReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
@@ -122,13 +123,24 @@ class MainActivity : AppCompatActivity() {
 fun NotificationManager.sendNotification(channelId: String, messageBody: String, applicationContext: Context){
 
     //Intent to make the notification clickable.
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+    val contentIntent = Intent(applicationContext, MainActivity::class.java) //MainActivity specified as the destination for the intent.
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
         NOTIFICATION_ID,
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
     )
+
+    //Intent for the button to do to the DetailActivity.
+    val detailIntent = Intent(applicationContext, DetailActivity::class.java)  //DetailActivity specified as the destination for the intent.
+
+    val pendingIntent: PendingIntent = PendingIntent.getActivity(
+        applicationContext,
+        REQUEST_CODE,
+        detailIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
+
 
     val zipImage = BitmapFactory.decodeResource(
         applicationContext.resources,
@@ -144,6 +156,13 @@ fun NotificationManager.sendNotification(channelId: String, messageBody: String,
         //Intent to make the notification clickable.
         .setContentIntent(contentPendingIntent)
         .setAutoCancel(true) //Cancels the notification when clicked.
+
+        //Add button and the Intent for the button
+        .addAction(
+            R.drawable.ic_assistant_black_24dp,
+            "File details",
+            pendingIntent
+        )
         
         //Additional style options for large image
         .setStyle(NotificationCompat.BigPictureStyle()
