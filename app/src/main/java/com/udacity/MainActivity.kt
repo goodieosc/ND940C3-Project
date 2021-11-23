@@ -23,9 +23,14 @@ import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
+// Notification ID.
+private val NOTIFICATION_ID = 0
+
 class MainActivity : AppCompatActivity() {
 
     private var downloadID: Long = 0
+
+
 
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
@@ -110,11 +115,20 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val CHANNEL_ID = "Download Notification Channel"
         private const val CHANNEL_NAME = "Download Notifications"
+
     }
 }
 
 fun NotificationManager.sendNotification(channelId: String, messageBody: String, applicationContext: Context){
 
+    //Intent to make the notification clickable.
+    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+    val contentPendingIntent = PendingIntent.getActivity(
+        applicationContext,
+        NOTIFICATION_ID,
+        contentIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
     val zipImage = BitmapFactory.decodeResource(
         applicationContext.resources,
@@ -126,13 +140,16 @@ fun NotificationManager.sendNotification(channelId: String, messageBody: String,
         .setContentTitle(applicationContext.getString(R.string.notification_title))
         .setContentText(messageBody)
         .setLargeIcon(zipImage)
+
+        //Intent to make the notification clickable.
+        .setContentIntent(contentPendingIntent)
+        .setAutoCancel(true) //Cancels the notification when clicked.
         
-        //Aditional style options for large image
+        //Additional style options for large image
         .setStyle(NotificationCompat.BigPictureStyle()
             .bigPicture(zipImage)
             .bigLargeIcon(null))
-    
-    
+
         notify(0, builder.build())
 
 }
