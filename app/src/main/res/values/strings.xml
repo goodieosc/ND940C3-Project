@@ -17,4 +17,6 @@
     <string name="url1">https://github.com/bumptech/glide/archive/refs/heads/master.zip</string>
     <string name="url2">https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/refs/heads/master.zip</string>
     <string name="url3">https://github.com/square/retrofit/archive/refs/heads/master.zip</string>
+    <string name="file_name">File name:</string>
+    <string name="status">Status:</string>
 </resources>
