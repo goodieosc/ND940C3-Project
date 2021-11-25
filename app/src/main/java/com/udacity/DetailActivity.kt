@@ -1,5 +1,7 @@
 package com.udacity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +22,13 @@ class DetailActivity : AppCompatActivity() {
         statusValueTextView.setText("$status")
 
 
-
         okButton.setOnClickListener {
-
+            startActivity(Intent(applicationContext,MainActivity::class.java))
         }
 
 
     }
+
+
 
 }

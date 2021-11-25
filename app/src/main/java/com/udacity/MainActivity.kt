@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 
             //Intent to make the notification clickable.
             .setContentIntent(contentPendingIntent)
-            .setAutoCancel(true) //Cancels the notification when clicked.
+
 
             //Add button and the Intent for the button
             .addAction(
@@ -185,9 +185,12 @@ class MainActivity : AppCompatActivity() {
                 .bigPicture(zipImage)
                 .bigLargeIcon(null))
 
+            .setAutoCancel(true) //Cancels the notification when clicked.
+
         notify(0, builder.build())
     }
 
+    @SuppressLint("Range") //Suppresses errors from code block below.
     fun getDownloadStatus(manager: DownloadManager, downloadId: Long) {
         val query: DownloadManager.Query = DownloadManager.Query()
         query.setFilterById(downloadId)
@@ -262,7 +265,7 @@ class DownloadCompletedQuery(private val manager: DownloadManager, private val d
         run()
     }
 
-    @SuppressLint("Range") //Suppresses errors from code below.
+    @SuppressLint("Range") //Suppresses errors from code block below.
     fun run() {
         while (downloadStatus <= 2) {
             Thread.sleep(500)
