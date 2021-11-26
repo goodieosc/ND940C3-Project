@@ -23,8 +23,11 @@ class DetailActivity : AppCompatActivity() {
         statusValueTextView.setText("$status")
 
 
-            motionLayout.transitionToEnd(
-                startActivity(Intent(DetailActivity,MainActivity::class.java)))
+        okButton.setOnClickListener {
+            motionLayout.transitionToEnd{startActivity(Intent(applicationContext,MainActivity::class.java))}
+
+        }
+
 
 
 
