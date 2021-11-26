@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- TODO: Define a Transition -->
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end">
+        <!--        app:duration="1000"-->
+        <OnSwipe
+            app:touchAnchorId="@id/okButton"
+            app:touchAnchorSide="right"
+            app:dragDirection="dragRight"/>
+    </Transition>
+    <!--    app:clickAction="toggle"-->
+
+    <!-- TODO: Define @id/start -->
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintHorizontal_bias="0.49" />
+        <Constraint
+            app:layout_editor_absoluteY="185dp"
+            android:layout_height="128dp"
+            app:layout_editor_absoluteX="295dp"
+            android:layout_width="46dp"
+            android:id="@+id/imageButton" />
+        <Constraint
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            android:id="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </ConstraintSet>
+
+    <!-- TODO: Define @id/end -->
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </ConstraintSet>
+</MotionScene>

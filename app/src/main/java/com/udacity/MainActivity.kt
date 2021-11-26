@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         custom_button.setOnClickListener {
                 download()
         }
-
     }
 
     private val downloadReceiver = object : BroadcastReceiver() {
@@ -117,10 +116,7 @@ class MainActivity : AppCompatActivity() {
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager //as specifies the data type
             downloadID = downloadManager.enqueue(request)// enqueue puts the download request in the queue.
 
-            //var downloadProgress: DownloadProgressUpdater.DownloadProgressListener
-            //downloadProgress = DownloadProgressUpdater(downloadManager, downloadID,downloadProgress)
             getDownloadStatus(downloadManager,downloadID)
-
 
             //notificationManager.sendNotification(CHANNEL_ID,"test", applicationContext)
 
@@ -252,52 +248,6 @@ private fun createChannel(channelId: String, channelName: String, notificationMa
         //Call createNotificationChannel on NotificationManager and pass notificationChannel
         notificationManager.createNotificationChannel(notificationChannel)
 
-    }
-}
-
-class DownloadCompletedQuery(private val manager: DownloadManager, private val downloadId: Long) {
-    private val query: DownloadManager.Query = DownloadManager.Query()
-    var downloadStatus: Int = 0
-     private var totalBytes: Int = 0
-
-     init {
-        query.setFilterById(this.downloadId)
-        run()
-    }
-
-    @SuppressLint("Range") //Suppresses errors from code block below.
-    fun run() {
-        while (downloadStatus <= 2) {
-            Thread.sleep(500)
-
-            manager.query(query).use {
-                if (it.moveToFirst()) {
-
-                    totalBytes = it.getInt(it.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-                    Log.i("Main Activity","Total bytes for this file is: $totalBytes Kbps")
-
-                    downloadStatus = it.getInt(it.getColumnIndex(DownloadManager.COLUMN_STATUS))
-                    //Log.i("Main Activity","Download status is $downloadStatus")
-                    val bytesDownloadedSoFar = it.getInt(it.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-                    Log.i("Main Activity","Bytes downloaded so far: $bytesDownloadedSoFar Kbps")
-
-                    when (downloadStatus){
-                        DownloadManager.STATUS_SUCCESSFUL -> {
-                            Log.i("Main Activity","Download successful")
-                        }
-                        DownloadManager.STATUS_FAILED -> {
-                            Log.i("Main Activity","Download failed")
-                        }
-                        DownloadManager.STATUS_RUNNING -> {
-                            Log.i("Main Activity", "Still downloading")
-                            //update progress
-                            val percentProgress = ((bytesDownloadedSoFar * 100L) / totalBytes)
-                            android.util.Log.i("Main Activity","Download progress: $percentProgress")
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 

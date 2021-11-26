@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
@@ -22,13 +23,10 @@ class DetailActivity : AppCompatActivity() {
         statusValueTextView.setText("$status")
 
 
-        okButton.setOnClickListener {
-            startActivity(Intent(applicationContext,MainActivity::class.java))
-        }
+            motionLayout.transitionToEnd(
+                startActivity(Intent(DetailActivity,MainActivity::class.java)))
+
 
 
     }
-
-
-
 }
