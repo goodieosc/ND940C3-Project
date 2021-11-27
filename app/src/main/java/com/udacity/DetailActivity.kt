@@ -27,9 +27,5 @@ class DetailActivity : AppCompatActivity() {
             motionLayout.transitionToEnd{startActivity(Intent(applicationContext,MainActivity::class.java))}
 
         }
-
-
-
-
     }
 }

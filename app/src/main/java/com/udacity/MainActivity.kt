@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
+            //LoadingButton(applicationContext).completedButtonState()
+
             //Create Toast when download completes.
             if(id == downloadID){
                 //Toast.makeText(applicationContext,"Download completed",Toast.LENGTH_LONG).show()

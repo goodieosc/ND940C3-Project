@@ -57,6 +57,10 @@ class LoadingButton @JvmOverloads constructor(
         }
     }
 
+    fun completedButtonState(){
+        buttonState = ButtonState.Completed
+    }
+
     private fun animator() {
 
         // The range is between 0 and 360, since the button arc is 360 degrees,
