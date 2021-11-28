@@ -67,7 +67,7 @@
             android:layout_marginBottom="32dp"
             android:width="350dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="@android:string/ok"
+            android:text="Swipe right to go back"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
 
                 // Call the sendNotification() extension function with the notification message
                 notificationManager.sendNotification(CHANNEL_ID, getString(R.string.notification_description),applicationContext)
+                //custom_button.setButton(ButtonState.Completed)
             }
         }
     }
@@ -125,6 +126,7 @@ class MainActivity : AppCompatActivity() {
         }else{
             //If no radioButton is selected, send a toast
             Toast.makeText(this,"Please select an option",Toast.LENGTH_SHORT).show()
+            custom_button.setButton(ButtonState.UnClicked)
         }
     }
 

@@ -13,6 +13,7 @@ import androidx.core.animation.doOnRepeat
 import kotlin.properties.Delegates
 import android.animation.Animator
 import androidx.core.content.ContextCompat
+import androidx.core.content.withStyledAttributes
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -37,6 +38,8 @@ class LoadingButton @JvmOverloads constructor(
         textAlign = Paint.Align.CENTER
     }
 
+    private var backgroundColour = 0
+    private var textColor = 0
 
     // This would contain the loading background dimensions.
     private val loadingRect = Rect()
@@ -55,10 +58,6 @@ class LoadingButton @JvmOverloads constructor(
 
             }
         }
-    }
-
-    fun completedButtonState(){
-        buttonState = ButtonState.Completed
     }
 
     private fun animator() {
@@ -84,6 +83,7 @@ class LoadingButton @JvmOverloads constructor(
                 buttonState = ButtonState.Completed
                 isClickable = true
                 Log.i("LoadingButton", "Button status changed to $buttonState")
+                invalidate()
             }
 
             // Start the animation.
@@ -92,6 +92,13 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     init {
+
+        context.withStyledAttributes(attrs,R.styleable.LoadingButton,0,0){
+            backgroundColour = getColor(R.styleable.LoadingButton_backgroundColour, 0)
+            textColor = getColor(R.styleable.LoadingButton_textColor, 0)
+        }
+
+
         isClickable = true
         buttonState = ButtonState.UnClicked
         Log.i("LoadingButton", "Button status is $buttonState")
@@ -150,7 +157,7 @@ class LoadingButton @JvmOverloads constructor(
                         rectPaint  //rect Attributes
                     )
 
-                    canvas.drawText("Download Complete", //Text to display
+                    canvas.drawText("Download Completed", //Text to display
                         (width / 2).toFloat(), //Starting point of x axis. Setting at half of the width to centre.
                         ((height / 2).toFloat() - (centreText)), //Starting point of y axis. Setting at half of the height to centre.
                         textSpec //Text attributes
@@ -175,6 +182,10 @@ class LoadingButton @JvmOverloads constructor(
             }
         }
 
+    }
+
+    fun setButton(state: ButtonState){
+        buttonState = state
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
